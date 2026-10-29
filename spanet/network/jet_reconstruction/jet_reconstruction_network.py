@@ -31,7 +31,7 @@ TArray = np.ndarray
 
 def default_assignment_fn(outputs: Outputs):
     return extract_predictions([
-        np.nan_to_num(assignment.detach().cpu().numpy(), -np.inf)
+        np.nan_to_num(assignment.detach().cpu().numpy(), nan=-np.inf, neginf=-np.inf)
         for assignment in outputs.assignments
     ])
 
@@ -214,7 +214,7 @@ class JetReconstructionNetwork(JetReconstructionBase):
         # Run the base prediction step
         with torch.no_grad():
             assignments = [
-                np.nan_to_num(assignment.detach().cpu().numpy(), -np.inf)
+                np.nan_to_num(assignment.detach().cpu().numpy(), nan=-np.inf, neginf=-np.inf)
                 for assignment in self.forward(sources).assignments
             ]
 
